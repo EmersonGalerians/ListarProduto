@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ItensLOL.Itens
+namespace Listar_lib.Itens
 {
     public class Loja
     {

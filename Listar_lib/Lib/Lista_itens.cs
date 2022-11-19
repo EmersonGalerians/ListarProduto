@@ -5,28 +5,33 @@ using System.Data.SqlClient;
 using System.Text;
 
 
-namespace ItensLOL.Itens
+namespace Listar_lib.Itens
 {
-    class ItensDeJogo
+    class Lista_itens
     {
         string ChaveConexao = "Data Source=10.39.45.44;Initial Catalog=Senac2022;Persist Security Info=True;User ID=Turma2022;Password=Turma2022@2022";
-        public DataSet List_LOL(string p_lol) {
+        public DataSet List_LOL(string p_nome)
+        {
             DataSet DataSetlol = new DataSet();
 
-            try {
+            try
+            {
                 SqlConnection Conexao = new SqlConnection(ChaveConexao);
                 Conexao.Open();
-                string wQuery = $"select * '%{p_lol}%'";
+                string wQuery = $"select * from Costumer_List where Name like'%{p_nome}%'";
                 SqlDataAdapter adapter = new SqlDataAdapter(wQuery, Conexao);
                 adapter.Fill(DataSetlol);
                 Conexao.Close();
             }
-            catch (Exception) { }
+            catch (Exception) {
+                throw;
+            }
             return DataSetlol;
         }
         public void Apagar_lol(string p_lol)
         {
-            try {
+            try
+            {
                 SqlConnection Conexao = new SqlConnection(ChaveConexao);
                 Conexao.Open();
                 String oQueryDelete = $"deletar este intem'{p_lol}'";
@@ -43,7 +48,8 @@ namespace ItensLOL.Itens
             string p_idProduto
             )
         {
-            try {
+            try
+            {
                 SqlConnection Conexao = new SqlConnection(ChaveConexao);
                 Conexao.Open();
                 String oQueryUpdate = "" +
@@ -66,8 +72,10 @@ namespace ItensLOL.Itens
             string p_descricao,
             string p_codigo,
             string p_idProduto
-            ) {
-            try {
+            )
+        {
+            try
+            {
                 SqlConnection Conexao = new SqlConnection(ChaveConexao);
                 Conexao.Open();
                 String oQueryInsert = "Inserir Item" +
@@ -86,11 +94,13 @@ namespace ItensLOL.Itens
                 Cmd.ExecuteNonQuery();
                 Conexao.Close();
             }
-            catch (Exception) {
+            catch (Exception)
+            {
 
             }
         }
-        public DataSet Pesquisar_lol(string p_lol) {
+        public DataSet Pesquisar_lol(string p_lol)
+        {
             DataSet loja = new DataSet();
 
             Console.WriteLine(p_lol);
@@ -104,12 +114,14 @@ namespace ItensLOL.Itens
                 Conexao.Close();
 
             }
-            catch (Exception) {
+            catch (Exception)
+            {
 
             }
             return loja;
         }
-        private void add_cep(Loja loja) {
+        private void add_cep(Loja loja)
+        {
             DataSet DataSetPesquisa = new DataSet();
             DataSetPesquisa = List_LOL(loja.idProduto);
 
@@ -123,7 +135,8 @@ namespace ItensLOL.Itens
                     loja.idProduto
                     );
             }
-            else {
+            else
+            {
                 Console.WriteLine($"Ja existe dados para esse item {loja.idProduto}" +
                     $"quantidade de registro {DataSetPesquisa.Tables[0].Rows.Count.ToString()}");
             }
